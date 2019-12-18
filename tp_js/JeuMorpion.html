@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Jeu de Morpion</title>
+  <style>
+    table, tr, td
+    {
+      background: #fcf7c1;
+      text-align: center;
+      border: 1px solid gray;
+    }
+    tr
+    {
+      height: 70px;
+    }
+    td
+    {
+      width: 70px;
+      height: 70px;
+    }
+    button {
+        padding: 10px;
+    }
+  </style>
+  </head>
+  <body>
+    <table id="grid" align="center">
+      <tr>
+        <td id="pos_0_0"></td>
+        <td id="pos_0_1"></td>
+        <td id="pos_0_2"></td>
+      </tr>
+      <tr>
+        <td id="pos_1_0"></td>
+        <td id="pos_1_1"></td>
+        <td id="pos_1_2"></td>
+      </tr>
+      <tr>
+        <td id="pos_2_0"></td>
+        <td id="pos_2_1"></td>
+        <td id="pos_2_2"></td>
+      </tr>
+      <tr>
+        <td colspan="3"><button id="rejouer" type="submit" onClick="document.location.reload(true)" >Rejouer</button></td>
+      </tr>
+    </table>
+
+    <script language="javascript"> 
+    var tabId = new Array;
+    var tabJouer = new Array;
+    tabId[0] = "pos_0_0";
+    tabId[1] = "pos_0_1";
+    tabId[2] = "pos_0_2";
+
+    tabId[3] = "pos_1_0";
+    tabId[4] = "pos_1_1";
+    tabId[5] = "pos_1_2";
+
+    tabId[6] = "pos_2_0";
+    tabId[7] = "pos_2_1";
+    tabId[8] = "pos_2_2";
+
+    tabJouer[0]=0;
+    tabJouer[1]=0;
+    tabJouer[2]=0;
+    tabJouer[3]=0;
+    tabJouer[4]=0;
+    tabJouer[5]=0;
+    tabJouer[6]=0;
+    tabJouer[7]=0;
+    tabJouer[8]=0;
+
+      var unitGrille = new Array();
+    for(var i= 0; i < 9 ; i++)
+    {
+      unitGrille[i] = document.getElementById(tabId[i]);
+      unitGrille[i].addEventListener("click", cliquer);
+    }
+
+    function jouerIa()
+    {
+        var NbAlea = getRandomInt();
+        //console.log(NbAlea);
+        while(tabJouer[NbAlea] != 0)
+        {
+          NbAlea = getRandomInt();
+        }
+        tabJouer[NbAlea] = 2;
+        console.log(tabJouer[NbAlea]);
+        unitGrille[NbAlea].innerHTML = "<img src='o.gif'>";
+        //console.log(NbAlea);
+
+           
+    }
+    var testnul = new Boolean(false);
+    function testGagner()
+    {
+      
+      if ((tabJouer[0] == 1 && tabJouer[1] == 1 && tabJouer[2] == 1 ) 
+      || (tabJouer[0] == 1 && tabJouer[3] == 1 && tabJouer[6] == 1)
+      || (tabJouer[0] == 1 && tabJouer[4] == 1 && tabJouer[8] == 1)
+      || (tabJouer[3] == 1 && tabJouer[4] == 1 && tabJouer[5] == 1)
+      || (tabJouer[6] == 1 && tabJouer[7] == 1 && tabJouer[8] == 1)
+      || (tabJouer[2] == 1 && tabJouer[5] == 1 && tabJouer[8] == 1)
+      || (tabJouer[1] == 1 && tabJouer[4] == 1 && tabJouer[7] == 1)
+      || (tabJouer[2] == 1 && tabJouer[4] == 1 && tabJouer[6] == 1))    
+       {
+         testnul= false;
+      window.alert("Vous avez gagné !");
+      location.reload(true);
+      }else if ((tabJouer[0] == 2 && tabJouer[1] == 2 && tabJouer[2] == 2 ) 
+      || (tabJouer[0] == 2 && tabJouer[3] == 2 && tabJouer[6] == 2)
+      || (tabJouer[0] == 2 && tabJouer[4] == 2 && tabJouer[8] == 2)
+      || (tabJouer[3] == 2 && tabJouer[4] == 2 && tabJouer[5] == 2)
+      || (tabJouer[6] == 2 && tabJouer[7] == 2 && tabJouer[8] == 2)
+      || (tabJouer[2] == 2 && tabJouer[5] == 2 && tabJouer[8] == 2)
+      || (tabJouer[1] == 2 && tabJouer[4] == 2 && tabJouer[7] == 2)
+      || (tabJouer[2] == 2 && tabJouer[4] == 2 && tabJouer[6] == 2))
+      {
+
+      window.alert("Vous avez perdu !");
+      location.reload(true);
+      testnul = false;
+      }
+
+    }
+     
+    function cliquer()
+    { 
+      var i=0;
+      for( i=0 ; i<9 ; i++)
+      {
+        if(tabId[i] == this.id)
+        {
+          tabJouer[i] = 1;
+          this.innerHTML = "<img src='x.gif'>";
+          break;
+        }
+        
+      }
+      
+      testGagner();
+      jouerIa();
+      console.log(tabJouer[i]);
+        
+    }
+      
+function getRandomInt() 
+    {
+       return Math.floor(Math.random() * Math.floor(8));
+    }
+
+    </script>
+  </body>
+</html>
